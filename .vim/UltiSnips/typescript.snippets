@@ -1,0 +1,37 @@
+snippet class "Class" b
+class $1 {
+`!p
+snip.rv = ""
+args = t[2].split(",")
+args = ["\t" + a.strip() + ";" for a in args if a]
+if len(args):
+	snip += "\n".join(args)
+
+`
+
+	constructor($2) {`!p
+snip.rv = ""
+args = t[2].split(",")
+args = [a[:a.find(":")].strip() for a in args if a]
+if len(args):
+	snip += "\n".join("\t\tthis." + arg + " = " + arg + ";" for arg in args)
+`
+	}
+	$0
+}
+endsnippet
+
+snippet /h "Fancy comment block header" b
+/*
+ * ${1/./=/g}
+ * $1
+ * ${1/./=/g}
+ */
+ $0
+endsnippet
+
+snippet /// "TypeScript Reference" b
+/// <reference path="$1" />$0
+endsnippet
+
+extends javascript
