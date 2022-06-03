@@ -1,0 +1,14 @@
+[Unit]
+Description=Automatically configure headphone jack as headset when plugged in
+After=pulseaudio.service
+After=pulseaudio.socket
+StartLimitIntervalSec=10
+StartLimitBurst=6
+
+[Service]
+ExecStart=/home/jtao/bin/autoset-headset-mic
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

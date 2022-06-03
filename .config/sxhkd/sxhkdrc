@@ -1,0 +1,98 @@
+#########
+# bspwm #
+#########
+# Switch desktops
+super + {_,shift + }{1-9,0}
+    bspc {desktop -f, node -d} m{1-9,0}
+
+alt + {_,shift + }{1-9,0}
+    bspc {desktop -f, node -d} e{1-9,0}
+
+# Select/Move windows
+super + {_,shift + }{h,j,k,l}
+    bspc node -{f,s} {west,south,north,east}
+
+# Preselect split
+super + ctrl + {h,j,k,l}
+    bspc node -p {west,south,north,east}
+
+# Preselect ratio
+super + ctrl + {1-9}
+    bspc node -o 0.{1-9}
+
+# Toggle layout mode
+super + space
+    bspc desktop -l next
+
+# Toggle floating
+super + ctrl + space
+    bspc node focused -t \~floating
+
+# Kill window
+super + ctrl + {w,q}
+    bspc node -{c,k}
+
+##############
+# Media Keys #
+##############
+XF86AudioRaiseVolume
+    pamixer --increase 5
+
+XF86AudioLowerVolume
+    pamixer --decrease 5
+
+XF86AudioMute
+    pamixer --toggle-mute
+
+XF86MonBrightnessUp
+    light -A 5
+
+XF86MonBrightnessDown
+    light -U 5
+
+XF86AudioPlay
+    mpc toggle
+
+XF86AudioPrev
+    mpc prev
+
+XF86AudioNext
+    mpc next
+
+############
+# Programs #
+############
+super + Return
+    WINIT_X11_SCALE_FACTOR=1.75 alacritty
+
+# The sleep is to make scrot happy
+Print
+    sleep 0.2; \
+    /home/jtao/bin/sharex
+
+ctrl + Print
+    sleep 0.2; \
+    cd "$HOME/screenshots"; \
+    scrot -s -f -e 'xclip -sel clipboard -t image/png -i $f'
+
+super + p
+    rofi -show run
+
+super + o
+    rofi -show window
+
+super + i
+    rofi -show ""
+
+super + u
+    rofi -show ""
+
+ctrl + alt + Escape
+    killall GeckoMain
+
+ctrl + shift + Escape
+    killall code-oss
+
+# Reload
+super + Escape
+    pkill -USR1 -x sxhkd

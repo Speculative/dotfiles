@@ -1,0 +1,89 @@
+configuration {
+    display-run: "";
+    display-window: "缾";
+    // weird icons due to: davatorium/rofi/issues/905
+    modi: "run,window,:~/.config/rofiemoji-rofiunicode/rofiunicode.sh,:~/.config/rofiemoji-rofiunicode/rofiemoji.sh";
+    kb-remove-to-eol: ""; // Unbind C-k
+    kb-accept-entry: "Return"; // Unbind C-j
+    kb-row-up: "Control-k";
+    kb-row-down: "Control-j";
+}
+
+@theme "/dev/null"
+
+* {
+    transparent: #00000000;
+
+    background: #202020E0;
+    foreground: #FFFFFF;
+    selected: #60606040;
+}
+window {
+    background-color: @background;
+    border: 4px;
+    border-color: @foreground;
+    padding:          10px 20px;
+    font:             "Iosevka Nerd Font 14";
+    transparency:     "real";
+}
+mainbox {
+    background-color: @transparent;
+    border:  0;
+    padding: 0;
+}
+inputbar {
+    background-color: @transparent;
+    children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
+}
+textbox-prompt-colon {
+    expand:     false;
+    str:        "";
+    font: "Iosevka Nerd Font 18";
+    padding: 8px 0;
+    text-color: @foreground;
+    background-color: @transparent;
+}
+prompt {
+    padding:  0 24px 0 0;
+    background-color: @transparent;
+    text-color: @foreground;
+    font: "Iosevka Nerd Font 28";
+}
+entry {
+    background-color: @transparent;
+    text-color: @foreground;
+    font: "Iosevka Nerd Font 18";
+    margin: 8px;
+}
+case-indicator {
+    background-color: @transparent;
+}
+listview {
+    background-color: @transparent;
+    fixed-height: 0;
+    border:       4px 0px 0px ;
+    border-color: @foreground;
+    scrollbar:    false;
+    padding:      4px 0;
+}
+element {
+    padding: 8px;
+}
+element.normal {
+    background-color: @transparent;
+    text-color:       @foreground;
+}
+element.selected {
+    background-color: @selected;
+    text-color:       @foreground;
+}
+element.alternate {
+    background-color: @transparent;
+    text-color:       @foreground;
+}
+element-text, element-icon {
+    background-color: @transparent;
+    text-color:       inherit;
+}
+
+/* vim:ft=css
