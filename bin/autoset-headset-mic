@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# https://askubuntu.com/a/1284966
+set -o pipefail
+index=$(pacmd list-sources | egrep 'index|ports|analog-input-headset-mic' | egrep '\*\sindex:\s+[0-9]'  | cut -d':' -f2);
+
+if [ $? -ne 0 ]
+then
+    echo "Failed to find sources, is pulseaudio running?"
+    exit 1
+fi
+
+acpi_listen | while IFS= read -r line;
+do
+    if [ "$line" = "jack/headphone HEADPHONE plug" ]
+    then
+       pacmd set-source-port $index analog-input-headset-mic;
+       echo "Setting headset mic" $index 
+    elif [ "$line" = "jack/headphone HEADPHONE unplug" ]
+    then
+       pacmd set-source-port $index analog-input-internal-mic;
+       echo "Setting internal mic" $index 
+    fi
+done

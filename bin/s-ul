@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if [ "$1" != "" ]; then
+    echo "$1"
+    URL=$(curl -X POST -F "file=@$1" -F "wizard=true" -F "client=scrot" -F "key=$SUL_KEY" 'https://s-ul.eu/api/v1/upload' | jq ".url" | tr -d '"')
+    echo "$URL" | tr -d "\n" | xclip -sel clipboard
+    echo "$URL" | tr -d "\n" | xclip -sel primary
+    notify-send -i "$1" "Uploaded" -t 2500
+else
+    echo "No file specified"
+fi
+

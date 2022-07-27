@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ ! -d "$HOME/screenshots" ]; then
+    mkdir "$HOME/screenshots"
+fi
+
+cd "$HOME/screenshots"
+scrot -s -f -e "$HOME/bin/s-ul $HOME/screenshots/\$n"
+
