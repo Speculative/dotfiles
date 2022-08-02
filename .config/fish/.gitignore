@@ -1,0 +1,14 @@
+fishd.tmp.*
+fish_variables
+functions/tide/*
+functions/_*
+*.copy
+
+fish_variables
+functions/fisher.fish
+functions/fzf.fish
+functions/tide.fish
+functions/fish_prompt.fish
+completions/tide.fish
+conf.d/_*
+conf.d/fzf.fish
