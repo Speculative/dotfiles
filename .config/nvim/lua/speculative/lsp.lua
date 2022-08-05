@@ -1,66 +1,120 @@
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+--[[
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local format_on_save = function(client, bufnr)
+  -- Format on save
+  if client.supports_method "textDocument/formatting" then
+    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        -- Change this in neovim 0.8
+        client.request("textDocument/formatting", vim.lsp.util.make_formatting_params(), nil, bufnr)
+        -- vim.lsp.buf.formatting_sync()
+      end,
+    })
+  end
+end
+--]]
+local capabilities =
+  require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-  -- Mappings.
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  local bufopts = { noremap=true, silent=true, buffer=bufnr }
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-  vim.keymap.set('n', '<leader>wa', vim.lsp.buf.add_workspace_folder, bufopts)
-  vim.keymap.set('n', '<leader>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
-  vim.keymap.set('n', '<leader>wl', function()
-    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, bufopts)
-  vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set('n', '<leader>nn', vim.lsp.buf.rename, bufopts)
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, bufopts)
-  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-  vim.keymap.set('n', '<leader>f', vim.lsp.buf.formatting, bufopts)
+local format_on_save = require("lsp-format").on_attach
+
+local language_hotkeys = function(_, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+  local bufopts = { noremap = true, silent = true, buffer = bufnr }
+  vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+  vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+  -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set("n", "<leader>nn", vim.lsp.buf.rename, bufopts)
+  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
 end
 
-local lsp_flags = {
-  -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
-}
+local everything = function(client, bufnr)
+  format_on_save(client)
+  language_hotkeys(client, bufnr)
+end
 
-local lspconfig = require('lspconfig')
-lspconfig.pyright.setup{
-  on_attach = on_attach,
-  flags = lsp_flags,
-}
-lspconfig.tsserver.setup{
-  on_attach = on_attach,
-  flags = lsp_flags,
-}
-lspconfig.rust_analyzer.setup{
-  on_attach = on_attach,
-  flags = lsp_flags,
-}
-lspconfig.sumneko_lua.setup{
+local null_ls = require "null-ls"
+null_ls.setup({
+  on_attach = format_on_save,
+  capabilities = capabilities,
+  sources = {
+    -- Web
+    null_ls.builtins.diagnostics.eslint,
+    null_ls.builtins.formatting.prettier,
+
+    -- Python
+    null_ls.builtins.formatting.black,
+
+    -- Lua
+    null_ls.builtins.formatting.stylua,
+  },
+})
+
+local lspconfig = require "lspconfig"
+lspconfig.pyright.setup({
+  on_attach = language_hotkeys,
+  capabilities = capabilities,
+})
+lspconfig.tsserver.setup({
+  on_attach = language_hotkeys,
+  capabilities = capabilities,
+})
+lspconfig.html.setup({
+  on_attach = language_hotkeys,
+  capabilities = capabilities,
+})
+lspconfig.cssls.setup({
+  on_attach = language_hotkeys,
+  capabilities = capabilities,
+})
+lspconfig.jsonls.setup({
+  on_attach = language_hotkeys,
+  capabilities = capabilities,
+})
+lspconfig.gopls.setup({
+  on_attach = everything,
+  capabilities = capabilities,
+})
+lspconfig.rust_analyzer.setup({
+  on_attach = everything,
+  capabilities = capabilities,
+})
+lspconfig.hls.setup({
+  on_attach = everything,
+  capabilities = capabilities,
+})
+lspconfig.sumneko_lua.setup({
+  on_attach = language_hotkeys,
   settings = {
     Lua = {
       runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
+        version = "LuaJIT",
       },
       diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
+        globals = { "vim" },
       },
       workspace = {
-        -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),
       },
-      -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
         enable = false,
       },
     },
   },
-}
+})
+
+-- Don't update LSP diagnostics while still in insert mode
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+  vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    -- delay update diagnostics
+    update_in_insert = false,
+  })
