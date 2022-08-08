@@ -5,7 +5,7 @@ return require("packer").startup(function(use)
   use "wbthomason/packer.nvim"
 
   -- Editing fundamentals
-  use "tpope/vim-surround"
+  -- use "tpope/vim-surround"
   use "tpope/vim-sleuth"
   use "jiangmiao/auto-pairs"
   use "tpope/vim-commentary"
@@ -13,10 +13,13 @@ return require("packer").startup(function(use)
   use "ggandor/leap.nvim"
   use "junegunn/vim-slash"
   use "lukas-reineke/indent-blankline.nvim"
+  use "kylechui/nvim-surround"
+  use "echasnovski/mini.nvim"
 
   -- IDE Features
   use "tpope/vim-fugitive"
   use "neovim/nvim-lspconfig"
+  use "ray-x/lsp_signature.nvim"
   use({
     "jose-elias-alvarez/null-ls.nvim",
     requires = { { "nvim-lua/plenary.nvim" } },
@@ -40,7 +43,6 @@ return require("packer").startup(function(use)
     "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
   })
-  -- use "mg979/vim-visual-multi"
   use({
     "nvim-telescope/telescope.nvim",
     tag = "0.1.0",
@@ -60,16 +62,19 @@ return require("packer").startup(function(use)
   use "folke/which-key.nvim"
   use "RRethy/vim-illuminate"
   use "lukas-reineke/lsp-format.nvim"
+  use "L3MON4D3/LuaSnip"
   use({
     "hrsh7th/nvim-cmp",
     requires = {
-      "hrsh7th/vim-vsnip",
+      "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
+      "onsails/lspkind.nvim",
     },
   })
+  use "rafamadriz/friendly-snippets"
 
   -- Interface
   use "widatama/vim-phoenix"

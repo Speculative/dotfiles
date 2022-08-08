@@ -14,15 +14,17 @@ vim.o.background = "dark"
 vim.api.nvim_command "colorscheme phoenix"
 vim.api.nvim_command "PhoenixPurple"
 
--- Plugin configs
-configure "speculative.feline"
+-- Plugin configsj
+configure "speculative.leap"
 configure "speculative.neotree"
+configure "speculative.feline"
 configure "speculative.bufferline"
 configure "speculative.lsp"
+configure "speculative.cmp"
 configure "speculative.treesitter"
-configure "speculative.whichkey"
-configure "speculative.leap"
 configure "speculative.indent"
+configure "speculative.whichkey"
+configure "speculative.surround"
 
 -- Hotkeys
 -- =======
@@ -95,6 +97,7 @@ vim.o.smarttab = true
 vim.o.number = true
 vim.o.relativenumber = true
 vim.api.nvim_command "windo set number relativenumber"
+vim.o.signcolumn = "yes"
 
 vim.o.incsearch = true
 vim.o.ignorecase = true

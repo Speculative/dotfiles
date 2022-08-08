@@ -19,6 +19,8 @@ end
 local capabilities =
   require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+require("lsp_signature").setup()
+
 local format_on_save = require("lsp-format").on_attach
 
 local language_hotkeys = function(_, bufnr)
@@ -67,6 +69,11 @@ lspconfig.pyright.setup({
 lspconfig.tsserver.setup({
   on_attach = language_hotkeys,
   capabilities = capabilities,
+  settings = {
+    completions = {
+      completeFunctionCalls = true,
+    },
+  },
 })
 lspconfig.html.setup({
   on_attach = language_hotkeys,
@@ -96,6 +103,9 @@ lspconfig.sumneko_lua.setup({
   on_attach = language_hotkeys,
   settings = {
     Lua = {
+      completion = {
+        callSnippet = "Replace",
+      },
       runtime = {
         version = "LuaJIT",
       },
