@@ -75,6 +75,7 @@ return require("packer").startup(function(use)
     },
   })
   use "rafamadriz/friendly-snippets"
+  use "akinsho/toggleterm.nvim"
 
   -- Interface
   use "widatama/vim-phoenix"

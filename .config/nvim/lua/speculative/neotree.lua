@@ -4,6 +4,13 @@ vim.fn.sign_define("DiagnosticSignWarn", { text = " ", texthl = "DiagnosticSi
 vim.fn.sign_define("DiagnosticSignInfo", { text = " ", texthl = "DiagnosticSignInfo" })
 vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" })
 
+local last_window = vim.fn.win_getid()
+
+vim.keymap.set("n", "<leader>bf", ":Neotree source=filesystem<cr>")
+vim.keymap.set("n", "<leader>bg", ":Neotree source=git_status<cr>")
+vim.keymap.set("n", "<leader>bb", ":Neotree source=buffers<cr>")
+vim.keymap.set("n", "\\", ":Neotree focus<cr>")
+
 require("neo-tree").setup({
   close_if_last_window = true,
   enable_git_status = true,
@@ -15,6 +22,48 @@ require("neo-tree").setup({
   },
   window = {
     width = "20%",
+    mappings = {
+      ["\\"] = function()
+        vim.api.nvim_set_current_win(last_window)
+      end,
+      ["h"] = function(state)
+        local node = state.tree:get_node()
+        if node.type == "directory" and node:is_expanded() then
+          require("neo-tree.sources.filesystem").toggle_directory(state, node)
+        else
+          require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
+        end
+      end,
+      ["l"] = function(state)
+        local node = state.tree:get_node()
+        if node.type == "directory" then
+          if not node:is_expanded() then
+            require("neo-tree.sources.filesystem").toggle_directory(state, node)
+          elseif node:has_children() then
+            require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
+          end
+        end
+      end,
+    },
+  },
+  filesystem = {
+    follow_current_file = true,
+  },
+  event_handlers = {
+    {
+      event = "neo_tree_buffer_enter",
+      handler = function()
+        -- This effectively hides the cursor
+        vim.api.nvim_command "highlight! Cursor blend=100"
+      end,
+    },
+    {
+      event = "neo_tree_buffer_leave",
+      handler = function()
+        -- Make this whatever your current Cursor highlight group is.
+        vim.api.nvim_command "highlight! Cursor guibg=#EFEFEF blend=0"
+      end,
+    },
   },
 })
 

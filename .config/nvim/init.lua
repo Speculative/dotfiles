@@ -13,26 +13,35 @@ configure "speculative.plugins"
 vim.o.background = "dark"
 vim.api.nvim_command "colorscheme phoenix"
 vim.api.nvim_command "PhoenixPurple"
+vim.api.nvim_command "set guicursor+=a:Cursor/lCursor"
+vim.o.guifont = "Iosevka"
 
--- Plugin configsj
+-- Leader
+vim.g.maplocalleader = " "
+vim.g.mapleader = " "
+vim.o.timeoutlen = 500
+
+-- Plugin configs
 configure "speculative.leap"
 configure "speculative.neotree"
 configure "speculative.feline"
 configure "speculative.bufferline"
+configure "speculative.terminal"
+configure "speculative.trouble"
 configure "speculative.lsp"
 configure "speculative.cmp"
 configure "speculative.treesitter"
 configure "speculative.indent"
-configure "speculative.whichkey"
 configure "speculative.surround"
+configure "speculative.whichkey"
 
 -- Hotkeys
 -- =======
 
 -- Fundamentals
-vim.g.mapleader = " "
-vim.o.timeoutlen = 500
 vim.keymap.set("n", "<leader><esc>", ":luafile $MYVIMRC<cr>")
+vim.keymap.set("i", "<C-BS>", "<C-w>")
+vim.keymap.set("i", "<C-h>", "<C-w>")
 
 -- Toggle search
 vim.keymap.set("n", "<leader>h", function()
@@ -44,14 +53,14 @@ vim.keymap.set("n", "<leader>h", function()
 end)
 
 -- Alternative Commentary binding
-vim.keymap.set({ "n", "v" }, "<c-_>", ":Commentary<cr>")
+vim.keymap.set({ "n", "v" }, "<C-_>", ":Commentary<cr>")
 
 -- Add empty lines
-vim.keymap.set("n", "<m-o>", "o<esc>k")
-vim.keymap.set("n", "<m-s-o>", "O<esc>j")
+vim.keymap.set("n", "<M-o>", "o<esc>k")
+vim.keymap.set("n", "<M-S-o>", "O<esc>j")
 
 -- BufferLine navigation
-vim.keymap.set("n", "<c-q>", function()
+vim.keymap.set("n", "<C-q>", function()
   local ft = vim.api.nvim_buf_get_option(0, "ft")
   if ft == "qf" then
     vim.api.nvim_win_close(0, true)
@@ -61,22 +70,16 @@ vim.keymap.set("n", "<c-q>", function()
     vim.api.nvim_command ":Bdelete"
   end
 end)
-vim.keymap.set("n", "<c-h>", ":BufferLineCyclePrev<cr>")
-vim.keymap.set("n", "<c-l>", ":BufferLineCycleNext<cr>")
-vim.keymap.set("n", "<c-m-h>", ":BufferLineMovePrev<cr>")
-vim.keymap.set("n", "<c-m-l>", ":BufferLineMoveNext<cr>")
-
--- Toggle NeoTree
-vim.keymap.set("n", "\\f", ":Neotree source=filesystem<cr>")
-vim.keymap.set("n", "\\g", ":Neotree source=git_status<cr>")
-vim.keymap.set("n", "\\g", ":Neotree source=buffers<cr>")
-vim.keymap.set("n", "|", ":Neotree toggle<cr>")
+vim.keymap.set("n", "<C-h>", ":BufferLineCyclePrev<cr>")
+vim.keymap.set("n", "<C-l>", ":BufferLineCycleNext<cr>")
+vim.keymap.set("n", "<C-M-h>", ":BufferLineMovePrev<cr>")
+vim.keymap.set("n", "<C-M-l>", ":BufferLineMoveNext<cr>")
 
 -- Toggle Trouble
 vim.keymap.set("n", "<leader>t", ":TroubleToggle<cr>")
 
 -- Telescope
-vim.keymap.set("n", "<c-k>", ":Telescope find_files<cr>")
+vim.keymap.set("n", "<C-k>", ":Telescope find_files<cr>")
 vim.keymap.set("n", "<leader>ff", ":Telescope find_files<cr>")
 vim.keymap.set("n", "<leader>fg", ":Telescope live_grep<cr>")
 vim.keymap.set("n", "<leader>fb", ":Telescope buffers<cr>")
