@@ -67,9 +67,15 @@ require("neo-tree").setup({
   },
 })
 
--- Open by default on wide enough windows
-if vim.api.nvim_win_get_width(0) > 100 then
-  require("neo-tree.command").execute({
-    action = "show",
-  })
+local function open_neotree_on_wide()
+  -- Open by default on wide enough windows
+  if vim.api.nvim_win_get_width(0) > 100 then
+    require("neo-tree.command").execute({
+      action = "show",
+    })
+  end
 end
+
+return {
+  open_neotree_on_wide = open_neotree_on_wide,
+}

@@ -76,6 +76,11 @@ return require("packer").startup(function(use)
   })
   use "rafamadriz/friendly-snippets"
   use "akinsho/toggleterm.nvim"
+  use "ekalinin/Dockerfile.vim"
+  use({
+    "rmagatti/session-lens",
+    requires = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
+  })
 
   -- Interface
   use "widatama/vim-phoenix"

@@ -22,6 +22,7 @@ vim.g.mapleader = " "
 vim.o.timeoutlen = 500
 
 -- Plugin configs
+configure "speculative.session"
 configure "speculative.leap"
 configure "speculative.neotree"
 configure "speculative.feline"

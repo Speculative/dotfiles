@@ -12,8 +12,7 @@ local format_on_save = function(client, bufnr)
         client.request("textDocument/formatting", vim.lsp.util.make_formatting_params(), nil, bufnr)
         -- vim.lsp.buf.formatting_sync()
       end,
-    })
-  end
+    }) end
 end
 --]]
 local capabilities =
@@ -96,6 +95,15 @@ lspconfig.rust_analyzer.setup({
   capabilities = capabilities,
 })
 lspconfig.hls.setup({
+  on_attach = everything,
+  capabilities = capabilities,
+})
+lspconfig.dockerls.setup({
+  on_attach = everything,
+  capabilities = capabilities,
+  filetypes = { "dockerfile", "Dockerfile" },
+})
+lspconfig.jdtls.setup({
   on_attach = everything,
   capabilities = capabilities,
 })
