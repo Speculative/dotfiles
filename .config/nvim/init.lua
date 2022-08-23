@@ -99,7 +99,7 @@ vim.o.autoindent = true
 vim.o.smarttab = true
 
 vim.o.number = true
-vim.o.relativenumber = true
+-- vim.o.relativenumber = true
 vim.api.nvim_command "windo set number relativenumber"
 vim.o.signcolumn = "yes"
 
@@ -108,5 +108,8 @@ vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.hlsearch = true
 
+vim.o.wrap = false
 vim.o.scrolloff = 1
 vim.o.showcmd = true
+
+vim.o.autoread = true

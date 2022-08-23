@@ -10,6 +10,7 @@ vim.keymap.set("n", "<leader>bf", ":Neotree source=filesystem<cr>")
 vim.keymap.set("n", "<leader>bg", ":Neotree source=git_status<cr>")
 vim.keymap.set("n", "<leader>bb", ":Neotree source=buffers<cr>")
 vim.keymap.set("n", "\\", ":Neotree focus<cr>")
+vim.keymap.set("n", "|", ":Neotree toggle<cr>")
 
 require("neo-tree").setup({
   close_if_last_window = true,
@@ -21,7 +22,7 @@ require("neo-tree").setup({
     },
   },
   window = {
-    width = "20%",
+    width = math.min(math.floor(vim.o.columns * 0.2), 30),
     mappings = {
       ["\\"] = function()
         vim.api.nvim_set_current_win(last_window)

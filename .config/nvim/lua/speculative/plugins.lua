@@ -81,15 +81,21 @@ return require("packer").startup(function(use)
     "rmagatti/session-lens",
     requires = { "rmagatti/auto-session", "nvim-telescope/telescope.nvim" },
   })
+  use({
+    "iamcco/markdown-preview.nvim",
+    run = function()
+      vim.fn["mkdp#util#install"]()
+    end,
+  })
 
   -- Interface
   use "widatama/vim-phoenix"
-  -- use({
-  --   "xiyaowong/nvim-transparent",
-  --   config = require("transparent").setup({
-  --     enable = true,
-  --   }),
-  -- })
+  use({
+    "xiyaowong/nvim-transparent",
+    config = require("transparent").setup({
+      enable = true,
+    }),
+  })
   use({
     "akinsho/bufferline.nvim",
     tag = "v2.*",
