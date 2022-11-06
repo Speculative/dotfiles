@@ -79,7 +79,7 @@ require("toggleterm").setup({
   close_on_exit = true,
   direction = "vertical",
   shade_terminals = false,
-  start_in_insert = false,
+  start_in_insert = true,
 })
 
 -- Terminal programs

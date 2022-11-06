@@ -15,8 +15,7 @@ local format_on_save = function(client, bufnr)
     }) end
 end
 --]]
-local capabilities =
-  require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 require("lsp_signature").setup()
 
@@ -54,6 +53,7 @@ null_ls.setup({
 
     -- Python
     null_ls.builtins.formatting.black,
+    null_ls.builtins.formatting.isort,
 
     -- Lua
     null_ls.builtins.formatting.stylua,
@@ -107,6 +107,19 @@ lspconfig.jdtls.setup({
   on_attach = everything,
   capabilities = capabilities,
 })
+lspconfig.hls.setup({
+  on_attach = everything,
+  capabilities = capabilities,
+  settings = {
+    haskell = {
+      formattingProvider = "ormolu",
+    },
+  },
+})
+lspconfig.svelte.setup({
+  on_attach = everything,
+  capabilities = capabilities,
+})
 lspconfig.sumneko_lua.setup({
   on_attach = language_hotkeys,
   settings = {
@@ -136,3 +149,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
     -- delay update diagnostics
     update_in_insert = false,
   })
+-- Add border to hover tooltips
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = "single",
+})

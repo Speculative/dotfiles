@@ -92,6 +92,7 @@ if os.getenv "TERM" ~= nil then
 end
 
 -- vim options
+-- ===========
 vim.o.mouse = "a"
 
 vim.o.backspace = "indent,eol,start"
