@@ -5,18 +5,27 @@ xcape -e 'Control_L=Escape'
 
 sxhkd &
 
-picom --backend glx --experimental-backends --blur-method dual_kawase --blur-strength 10 &
+picom --backend glx --blur-method dual_kawase --blur-strength 10 &
 
 polybar system &
 polybar system_ext &
 
-# wal -R &
-
 feh -r --bg-fill /home/jtao/customization/wallpapers/current &
 
+light-locker &
+
+# mopidy &
+
+# Make cursor on desktop consistent with applications
+xsetroot -cursor_name left_ptr
+
 # Desktops
-bspc monitor eDP-1 -d {m1,m2,m3,m4}
-bspc monitor DP-1  -d {e1,e2,e3,e4}
+# XPS 13
+# bspc monitor eDP-1 -d {m1,m2,m3,m4}
+# Portable monitor
+bspc monitor DP-1-1  -d {e1,e2,e3,e4}
+# G14
+bspc monitor eDP-2 -d {m1,m2,m3,m4}
 # bspc monitor -d {西,南,北,東}
 
 # A e s t h e t i c s
@@ -31,13 +40,10 @@ bspc config gapless_monocle      false
 # Per-program configs
 bpsc rule -a dmenu_extended_run floating=on
 bspc rule -a zoom state=floating center=on follow=on border=off
-bspc rule -a NoiseTorth state=floating border=off
-
-# Set colors from wal
-# . "${HOME}/.cache/wal/colors.sh"
-# bspc config normal_border_color "$background"
-# bspc config focused_border_color "$foreground"
-# bspc config presel_feedback_color "$color1"
+bspc rule -a 'zoom ' state=floating center=on follow=on border=off
+bspc rule -a NoiseTorch state=floating border=off
+bspc rule -a 'Alacritty:transient' state=fullscreen
+bspc rule -a matplotlib state=floating border=off
 
 # Colors
 bspc config normal_border_color  "#4C566A"
