@@ -155,7 +155,7 @@ type = internal/memory
 interval = 1
 format = <label>
 
-label = %{T3}󰘷%{T-} %percentage_used%%
+label = %{T3}󰘷%{T-} %percentage_used:2%%
 
 [module/battery]
 type = internal/battery
@@ -167,9 +167,9 @@ poll-interval = 5
 format-charging = <ramp-capacity> <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
 
-label-charging = %{T2}󰚥%{T-} %percentage%%
-label-discharging = %{T2}󰚦%{T-} %percentage%%
-label-full = %{T2}󰁹%{T-} %percentage%%
+label-charging = %{T2}󰚥%{T-} %percentage:2%%
+label-discharging = %{T2}󰚦%{T-} %percentage:2%%
+label-full = %{T2}󰁹%{T-} %percentage:2%%
 
 ; https://github.com/ryanoasis/nerd-fonts/issues/279
 ramp-capacity-0  = 󰂃
@@ -189,10 +189,10 @@ ramp-capacity-foreground = ${colors.foreground}
 type = internal/pulseaudio
 
 format-volume = <label-volume>
-label-volume = %{T3}󰕾%{T-} %percentage%%
+label-volume = %{T3}󰕾%{T-} %percentage:2%%
 label-volume-foreground = ${colors.foreground}
 
-label-muted = %{T3}󰝟%{T-} %percentage%%
+label-muted = %{T3}󰝟%{T-} %percentage:2%%
 ; label-muted-foreground = #666
 
 [module/light]
@@ -266,12 +266,12 @@ interval = 5.0
 format-connected = <label-connected> 
 format-disconnected = <label-disconnected>
 
-label-connected = %{T3}%{T-} %signal%%
+label-connected = %{T3}%{T-} %signal:2%%
 label-disconnected = %{T3}󰖪%{T-}
 
 [module/cpu]
 type = internal/cpu
-label = %{T3}%{T-} %percentage%%
+label = %{T3}%{T-} %percentage:2%%
 
 [settings]
 screenchange-reload = true
