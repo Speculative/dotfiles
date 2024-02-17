@@ -5,9 +5,9 @@ return require("packer").startup(function(use)
   use "wbthomason/packer.nvim"
 
   -- Editing fundamentals
-  -- use "tpope/vim-surround"
+  use "tpope/vim-surround"
   use "tpope/vim-sleuth"
-  use "jiangmiao/auto-pairs"
+  -- use "jiangmiao/auto-pairs"
   use "tpope/vim-commentary"
   use "unblevable/quick-scope"
   use "ggandor/leap.nvim"
@@ -45,7 +45,7 @@ return require("packer").startup(function(use)
   })
   use({
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.0",
+    branch = "0.1.x",
     requires = { { "nvim-lua/plenary.nvim" } },
   })
   use({
@@ -92,9 +92,7 @@ return require("packer").startup(function(use)
   use "widatama/vim-phoenix"
   use({
     "xiyaowong/nvim-transparent",
-    config = require("transparent").setup({
-      enable = true,
-    }),
+    config = require("transparent").setup(),
   })
   use({
     "akinsho/bufferline.nvim",

@@ -54,7 +54,7 @@ vim.keymap.set("n", "<leader>h", function()
 end)
 
 -- Alternative Commentary binding
-vim.keymap.set({ "n", "v" }, "<C-_>", ":Commentary<cr>")
+vim.keymap.set({ "n", "v" }, "<C-/>", ":Commentary<cr>")
 
 -- Add empty lines
 vim.keymap.set("n", "<M-o>", "o<esc>k")

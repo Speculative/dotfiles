@@ -32,7 +32,7 @@ local language_hotkeys = function(_, bufnr)
   vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
   -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
-  vim.keymap.set("n", "<leader>nn", vim.lsp.buf.rename, bufopts)
+  vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, bufopts)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
 end
@@ -49,7 +49,9 @@ null_ls.setup({
   sources = {
     -- Web
     null_ls.builtins.diagnostics.eslint,
-    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.prettier.with({
+      filetypes = { "html", "json", "yaml", "markdown" },
+    }),
 
     -- Python
     null_ls.builtins.formatting.black,
@@ -120,7 +122,7 @@ lspconfig.svelte.setup({
   on_attach = everything,
   capabilities = capabilities,
 })
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
   on_attach = language_hotkeys,
   settings = {
     Lua = {
