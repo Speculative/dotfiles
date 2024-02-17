@@ -3,10 +3,16 @@
 #########
 # Switch desktops
 super + {_,shift + }{1-9,0}
-    bspc {desktop -f, node -d} m{1-9,0}
+    bspc {desktop -f, node -d} e{1-9,0}
+
+super + {_,shift + }{q,w,e,r}
+    bspc {desktop -f, node -d} e{1,2,3,4}
 
 alt + {_,shift + }{1-9,0}
-    bspc {desktop -f, node -d} e{1-9,0}
+    bspc {desktop -f, node -d} m{1-9,0}
+
+alt + {_,shift + }{q,w,e,r}
+    bspc {desktop -f, node -d} m{1,2,3,4}
 
 # Select/Move windows
 super + {_,shift + }{h,j,k,l}
@@ -45,35 +51,44 @@ XF86AudioMute
     pamixer --toggle-mute
 
 XF86MonBrightnessUp
-    light -A 5
+    light -A -r 8
 
 XF86MonBrightnessDown
-    light -U 5
+    light -U -r 8
 
-XF86AudioPlay
+{XF86AudioPlay, XF86Launch3}
     mpc toggle
 
-XF86AudioPrev
+{super + XF86AudioPlay, XF86Launch4}
+    alacritty --class transient -e ncmpcpp
+
+{XF86AudioPrev, XF86KbdBrightnessDown}
     mpc prev
 
-XF86AudioNext
+{XF86AudioNext, XF86KbdBrightnessUp}
     mpc next
+
+XF86Launch1
+    /home/jtao/bin/cycle_power_profile
 
 ############
 # Programs #
 ############
 super + Return
+    wezterm
+
+super + shift + Return
     WINIT_X11_SCALE_FACTOR=1.75 alacritty
 
 # The sleep is to make scrot happy
-Print
+{Print, super + shift + s}
     sleep 0.2; \
     /home/jtao/bin/sharex
 
-ctrl + Print
+{ctrl + Print, ctrl + F6}
     sleep 0.2; \
     cd "$HOME/screenshots"; \
-    scrot -s -f -e 'xclip -sel clipboard -t image/png -i $f'
+    scrot -s --line mode=edge -f -e 'xclip -sel clipboard -t image/png -i $f'
 
 super + p
     rofi -show run
@@ -82,10 +97,10 @@ super + o
     rofi -show window
 
 super + i
-    rofi -show ""
+    rofimoji --prompt "" --max-recent 0 --action clipboard
 
 super + u
-    rofi -show ""
+    rofimoji --prompt "" --max-recent 0 --files cjk_cantonese greek_and_coptic math mathematical_alphanumeric_symbols mathematical_operators --action clipboard
 
 ctrl + alt + Escape
     killall GeckoMain

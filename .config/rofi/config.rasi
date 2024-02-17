@@ -1,8 +1,8 @@
 configuration {
     display-run: "";
-    display-window: "缾";
+    display-window: "󰖲";
     // weird icons due to: davatorium/rofi/issues/905
-    modi: "run,window,:~/.config/rofiemoji-rofiunicode/rofiunicode.sh,:~/.config/rofiemoji-rofiunicode/rofiemoji.sh";
+    // modi: "run,window,:~/.config/rofiemoji-rofiunicode/rofiunicode.sh,:~/.config/rofiemoji-rofiunicode/rofiemoji.sh";
     kb-remove-to-eol: ""; // Unbind C-k
     kb-accept-entry: "Return"; // Unbind C-j
     kb-row-up: "Control-k";
@@ -23,7 +23,7 @@ window {
     border: 4px;
     border-color: @foreground;
     padding:          10px 20px;
-    font:             "Iosevka Nerd Font 14";
+    font:             "Iosevka NF 14";
     transparency:     "real";
 }
 mainbox {
@@ -37,8 +37,8 @@ inputbar {
 }
 textbox-prompt-colon {
     expand:     false;
-    str:        "";
-    font: "Iosevka Nerd Font 18";
+    str:        "";
+    font: "Iosevka NF 18";
     padding: 8px 0;
     text-color: @foreground;
     background-color: @transparent;
@@ -47,12 +47,12 @@ prompt {
     padding:  0 24px 0 0;
     background-color: @transparent;
     text-color: @foreground;
-    font: "Iosevka Nerd Font 28";
+    font: "Iosevka NF 28";
 }
 entry {
     background-color: @transparent;
     text-color: @foreground;
-    font: "Iosevka Nerd Font 18";
+    font: "Iosevka NF 18";
     margin: 8px;
 }
 case-indicator {
