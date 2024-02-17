@@ -99,6 +99,6 @@ return require("packer").startup(function(use)
     tag = "v2.*",
     requires = "kyazdani42/nvim-web-devicons",
   })
-  use "feline-nvim/feline.nvim"
+  use "freddiehaddad/feline.nvim"
   use "moll/vim-bbye"
 end)
