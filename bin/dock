@@ -1,0 +1,18 @@
+#!/bin/bash
+
+MONITORS=($(xrandr --query | grep ' connected' | cut -d ' ' -f 1))
+for monitor in "${MONITORS[@]}"; do
+  if [ "$monitor" != "eDP" ]; then
+    MODE=($(xrandr --query | grep -A 1 "$monitor" | sed -n '2 p' | sed 's/^[ ]*//' | cut -d ' ' -f 1))
+    xrandr --output "$monitor" --mode "$MODE" --right-of eDP
+    bspc monitor "$monitor"  -d {e1,e2,e3,e4}
+    MONITOR2="$monitor" polybar system_ext &
+  fi
+done
+
+feh -r --bg-fill /home/jtao/customization/wallpapers/current &
+
+setxkbmap -option ctrl:nocaps
+xcape -e 'Control_L=Escape'
+
+asusctl -c 80

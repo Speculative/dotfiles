@@ -1,0 +1,4 @@
+#!/usr/bin/sh
+
+asusctl profile -n
+asusctl profile --profile-get | xargs -I "{}" notify-send -r 8001 "Power state changed" "{}"

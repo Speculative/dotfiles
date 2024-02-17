@@ -1,0 +1,12 @@
+#!/bin/bash
+
+MONITORS=($(xrandr --query | grep ' connected' | cut -d ' ' -f 1))
+for monitor in "${MONITORS[@]}"; do
+  if [ "$monitor" != "eDP" ]; then
+    bspc monitor "$monitor" --remove-desktops {e1,e2,e3,e4}
+    xrandr --output "$monitor" --off
+  fi
+done
+
+setxkbmap -option ctrl:nocaps
+xcape -e 'Control_L=Escape'
